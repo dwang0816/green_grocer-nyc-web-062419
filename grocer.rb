@@ -47,4 +47,13 @@ end
 
 def checkout(cart, coupons)
   # code here
+  return_cart = consolidate_cart cart
+  return_cart = apply_coupons return_cart,coupons
+  return_cart = apply_clearance return_cart
+  price = 0.00
+  return_cart.each do |items,values|
+    item_cost = values[:count]* values[:price] 
+    price += item_cost
+  end
+  price > 100 ? price * 0.90 : price
 end
